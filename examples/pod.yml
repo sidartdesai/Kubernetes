@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod #creating a resource type as pod
+metadata:
+  name: nginx
+  namespace: sidharth #namespace under which pod will be created
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
