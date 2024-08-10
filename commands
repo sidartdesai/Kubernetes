@@ -1,0 +1,57 @@
+# setting alias
+alias k=kubectl
+
+# get cluster information
+kubectl cluster-info
+
+# create token
+kubeadm token create --print-join-command
+
+# create namespace
+k create ns namespace-name
+
+# set default namespace
+kubectl config set-context --current --namespace=namespace-name
+
+# resources not specific to namespaces
+kubectl api-resources --namespaced=false
+
+# resources specific to namespaces
+kubectl api-resources --namespaced=true
+
+# drain a node and remove from schecduling
+k drain node-name --ignore-daemonsets --delete-emptydir-data
+
+# re-add node after draining
+k uncordon node-name
+
+#pod phases
+- pending: The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. 
+  This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
+- running: The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
+- success: All containers in the Pod have terminated in success, and will not be restarted.
+- failed: All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system, and is not set for automatic restarting.
+- unknown: For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
+
+#container states
+- waiting 
+- running
+- terminating
+
+#container restart policies
+- Always
+- OnFailure
+- Never
+
+#probes
+  
+livenessProbe
+Indicates whether the container is running. 
+If the liveness probe fails, the kubelet kills the container, and the container is subjected to its restart policy. If a container does not provide a liveness probe, the default state is Success.
+readinessProbe
+Indicates whether the container is ready to respond to requests. 
+If the readiness probe fails, the endpoints controller removes the Pod's IP address from the endpoints of all Services that match the Pod. The default state of readiness before the initial delay is Failure. 
+If a container does not provide a readiness probe, the default state is Success.
+startupProbe
+Indicates whether the application within the container is started. All other probes are disabled if a startup probe is provided, until it succeeds. If the startup probe fails, the kubelet kills the container, and the container is subjected to its restart policy. If a container does not provide a startup probe, the default state is Success.
+
