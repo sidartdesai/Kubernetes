@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: sidharth
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        env:
+        # Define the environment variable
+        - name: NAME # Notice that the case is different here
+        # from the key name in the ConfigMap.
+          valueFrom:
+            configMapKeyRef:
+              name: test-cm           # The ConfigMap this value comes from.
+              key: name # The key to fetch.
+        - name: AGE # Notice that the case is different here
+          # from the key name in the ConfigMap.
+          valueFrom:
+            configMapKeyRef:
+              name: test-cm           # The ConfigMap this value comes from.
+              key: age # The key to fetch.
+        ports:
+        - containerPort: 80
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 1
