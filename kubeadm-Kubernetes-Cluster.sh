@@ -63,7 +63,9 @@ sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 
 
 # Network Plugin = calico
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
-refer to this: https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart
+# kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
+
+# install network plugin = weave net
+kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.29/net.yaml
 
 kubeadm token create --print-join-command
