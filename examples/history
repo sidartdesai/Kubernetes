@@ -1,0 +1,166 @@
+1  sudo hostnamectl set-hostname k8s-master-1
+    2  exit    3  sudo kubeadm init    4  mkdir -p "$HOME"/.kube    5  sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config    6  sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config    7  kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.29/net.yaml    8  kubeadm token create --print-join-command
+    9  kubectl cluster-info   10  kubectl cluster-info dump   11  kubectl cluster-info dump | grep certificate   12  kubectl cluster-info dump | grep certificate-key   13  kubectl cluster-info dump | grep certificate   14  kubeadm token create --print-join-command --control-plane   15  kubeadm token create --print-join-command--control-plane   16  kubeadm init phase upload-certs --upload-certs   17  sudo kubeadm init phase upload-certs --upload-certs   18  kubeadm token create --print-join-command
+   19  history
+   20  kubectl get nodes   21  ifconfig   22  ip addr   23  kubectl get all -A
+   24  sudo kubeadm reset
+   25  sudo kubeadm init --control-plane-endpoint "172.31.89.201:6443" --upload-certs
+   26  kubectl get nodes
+   27  history
+   28  kubeadm init phase upload-certs --upload-certs
+   29  sudo kubeadm init phase upload-certs --upload-certs
+   30  kubectl get nodes
+   31  sudo kubeadm reset
+   32  rm -rf $HOME/.kube/config
+   33  sudo kubeadm init
+   34  mkdir -p "$HOME"/.kube
+   35  sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
+   36  sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
+   37  kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.29/net.yaml
+   38  kubectl get nodes   39  kubeadm token create --print-join-command   40  cd /etc/kubernetes/   41  l -l
+   42  curl http://172.31.89.201:6443
+   43  nmap
+   44  sudo apt install nmap
+   45  nmap localhost
+   46  kubectl cluster-info
+   47  curl https://172.31.89.201:6443/api
+   48  curl -K https://172.31.89.201:6443/api
+   49  curl -K https://172.31.89.201:6443/
+   50  curl -Ik https://172.31.89.201:6443/
+   51  curl -Ik https://172.31.89.201:6443/api
+   52  kubectl config view
+   53  kubeadm token create --print-join-command
+   54  kubectl get nodes
+   55  cd
+   56  nano deploy.yml
+   57  kubectl create ns sidharth
+   58  alias k=kubectl
+   59  k apply -f deploy.yml
+   60  k get pods
+   61  k config set --current-context --namespace=sidharth
+   62  k config set --help
+   63  k config set --current --namespace=sidharth
+   64  k config set-context --current --namespace=sidharth
+   65  k get pods
+   66  k get pods -o wide
+   67  k get nodes
+   68  k drain k8s-node-1
+   69  k get pods -o wide
+   70  k drain k8s-node-1 --ignore-daemonsets
+   71  k get pods -o wide
+   72  k get nodes
+   73  k uncordon k8s-node-1
+   74  k get nodes
+   75  k get pods -o wide
+   76  k delete -f .
+   77  k get pods -o wide
+   78  echo 1 > deploy.yml
+   79  nano deploy.yml
+   80  k apply -f .
+   81  k get pods -o wide
+   82  watch "k get pods"
+   83  watch "kubectl get pods"
+   84  cat deploy.yml
+   85  kubectl edit deploy/nginx-deployment
+   86  k get pods
+   87  kubectl describe deploy/nginx-deployment
+   88  kubectl edit deploy/nginx-deployment
+   89  watch "kubectl get pods"
+   90  k get rs
+   91  k rollout states
+   92  kubectl get nodes
+   93  cd
+   94  ls -l
+   95  nano sa.yml
+   96  k apply -f .
+   97  kubectl apply -f .
+   98  alias k=kubectl
+   99  k get pods
+  100  k get rs
+  101  k et sa
+  102  k get sa
+  103  k describe sa/my-serviceaccount
+  104  nano role.yml
+  105  k apply -f role.yml
+  106  cat role.yml
+  107  nano rolebiding
+  108  nano rolebiding.yml
+  109  k describe sa/my-serviceaccount
+  110  cat < EOF | tee sa-secret.yml
+  111  cat > EOF | tee sa-secret.yml
+  112  nano sa-secret.yml
+  113  k apply sa-secret.yml
+  114  k apply -f sa-secret.yml
+  115  nano sa-secret.yml
+  116  k apply -f sa-secret.yml
+  117  k get all
+  118  k get all -n sidharth
+  119  k get sa
+  120  k get secret
+  121  k get secret -n sidharth
+  122  ls -l
+  123  kubectl apply -f sa-secret.yml
+  124  cat sa-secret.yml
+  125  k get pods
+  126  k get secrets
+  127  k get secret
+  128  k get roles
+  129  k describe role pod-role
+  130  k describe role pod-reader
+  131  k get role pod-reader -o yaml
+  132  nano role.yml
+  133  k apply -f role.yml
+  134  k describe role pod-reader
+  135  cat rolebiding.yml
+  136  nano rolebiding.yml
+  137  k get sa
+  138  k get sa -o wide
+  139  k apply -f rolebiding.yml
+  140  nano rolebiding.yml
+  141  k get rb
+  142  k get rolebinding
+  143  cat rolebiding.yml
+  144  nano rolebiding.yml
+  145  k apply -f rolebiding.yml
+  146  k get rolebinding
+  147  k get all
+  148  k get roles
+  149  k get rolebinding
+  150  k create token my-serviceaccount | k view-serviceaccount-kubeconfig
+  151  k krew install view-serviceaccount-kubeconfig
+  152  kubectl krew install view-serviceaccount-kubeconfig
+  153  k config view
+  154  k config view > sa-config.yml
+  155  nano sa-config.yml
+  156  rm -rf sa-config.yml
+  157  k create token my-serviceaccount | k view-serviceaccount-kubeconfig
+  158  k create token my-serviceaccount | kubernetes view-serviceaccount-kubeconfig
+  159  k create token my-serviceaccount | kubectl view-serviceaccount-kubeconfig
+  160  k krew
+  161  git
+  162  (   set -x; cd "$(mktemp -d)" &&   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&   ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&   KREW="krew-${OS}_${ARCH}" &&   curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&   tar zxvf "${KREW}.tar.gz" &&   ./"${KREW}" install krew; )
+  163  k create token my-serviceaccount | kubectl view-serviceaccount-kubeconfig
+  164  kubectl krew install view-serviceaccount-kubeconfig
+  165  ls -l
+  166  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+  167  kubectl krew install view-serviceaccount-kubeconfig
+  168  k create token my-serviceaccount | kubectl view-serviceaccount-kubeconfig
+  169  k create token my-serviceaccount | kubectl view-serviceaccount-kubeconfig > temp-sa-account-config
+  170  k get pods --config temp-sa-account-config
+  171  k get pods --kubeconfig temp-sa-account-config
+  172  k get nodes --kubeconfig temp-sa-account-config
+  173  k get role pod-reader -o yaml
+  174  k get pods --kubeconfig temp-sa-account-config
+  175  k delete pod nginx-deployment-86dcfdf4c6-5bct6 --kubeconfig temp-sa-account-config
+  176  diff ~/.kube/config temp-sa-account-config
+  177  cat ~/.kube/config
+  178  cat temp-sa-account-config
+  179  ls -l
+  180  cat sa.yml
+  181  cat role.yml
+  182  cat rolebiding.yml
+  183  k delete -f sa.yml role.yml rolebiding.yml
+  184  k delete -f sa.yml -f role.yml -f rolebiding.yml
+  185  nano sarobi.yml
+  186  k apply -f sarobi.yml
+  187  history
