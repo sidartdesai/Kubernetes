@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:    kubernetes.io/enforce-mountable-secrets: "true"  name: my-serviceaccount  namespace: sidharth
+---
+apiVersion: rbac.authorization.k8s.io/v1kind: Role
+metadata:  namespace: sidharth  name: pod-readerrules:- apiGroups: [""] # "" indicates the core API group  resources: ["pods"]  verbs: ["get", "watch", "list"]- apiGroups: [""] # "" indicates the core API group  resources: ["pods/exec"]  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1kind: RoleBindingmetadata:  name: read-exec-pods
+  namespace: sidharth
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: my-serviceaccount
+  namespace: sidharth
