@@ -1,0 +1,6 @@
+project = "k8s-kubeadm"
+ubuntu-ami = "ami-0e86e20dae9224db8"
+master_instance_type = "t3.medium"
+ha_instance_type = "t3.micro"
+node_instance_type = "t2.micro"
+subnet-id = "enter-subnet-id-here"
