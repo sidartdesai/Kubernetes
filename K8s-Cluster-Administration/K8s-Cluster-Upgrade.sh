@@ -30,7 +30,7 @@ sudo kubeadm upgrade apply v1.29.8
 #drain the nodes
 kubectl drain node --ignore-daemonsets
 
-#unhold the package kubelet & kubectl on the worker nodes
+#unhold & upgrade the package kubelet & kubectl on the worker nodes
 sudo apt install -y kubelet=1.29.8-1.1 kubectl=1.29.8-1.1 && sudo apt-mark hold kubeadm
 
 #restart kubelet
@@ -39,3 +39,6 @@ sudo systemctl restart kubelet
 
 #uncordon the node
 kubectl uncordon node
+
+#verify the upgrade
+kubectl get nodes
